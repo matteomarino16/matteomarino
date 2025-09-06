@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richiedi Preventivo - Matteo Marino</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x.icon" href="favicon.ico"/>
+    <style>
+        .form-section {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-container {
+            background: rgba(20, 25, 45, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: #764ba2;
+        }
+        
+        .success-message {
+            display: none;
+            background: rgba(39, 174, 96, 0.2);
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            color: #2ecc71;
+        }
+        
+        /* Cookie Banner Styles */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(20, 25, 45, 0.95);
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cookie-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .cookie-content p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+        
+        .cookie-content a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .cookie-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .cookie-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Cookie Icon Styles */
+        .cookie-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(20, 25, 45, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .cookie-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>Questo sito utilizza i cookie per migliorare l'esperienza utente. <a href="cookies.html">Maggiori informazioni</a></p>
+            <button id="accept-cookies" class="cookie-button">Accetta</button>
+        </div>
+    </div>
+    
+    <!-- Cookie Icon -->
+    <div id="cookie-icon" class="cookie-icon" style="display: none;">
+        🍪
+    </div>
+    
+    <!-- Header Hero con altezza ridotta -->
+    <header class="header" style="height: 30vh; min-height: 250px;">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Richiedi un Preventivo</h1>
+            <p class="hero-subtitle">Compila il form per ricevere un'offerta personalizzata</p>
+        </div>
+    </header>
+    
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="form-container">
+            <div id="success-message" class="success-message">
+                Grazie per avermi contattato! Ti risponderò al più presto.
+            </div>
+            
+            <form id="preventivo-form" action="https://formspree.io/f/mldwaejz" method="POST">
+                <div class="form-group">
+                    <label for="name" class="form-label">Nome e Cognome</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">Telefono</label>
+                    <input type="tel" id="phone" name="phone" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-type" class="form-label">Tipo di Progetto</label>
+                    <select id="project-type" name="project-type" class="form-control" required>
+                        <option value="">Seleziona un'opzione</option>
+                        <option value="sito-web">Sito Web</option>
+                        <option value="e-commerce">E-commerce</option>
+                        <option value="app-mobile">App Mobile</option>
+                        <option value="design">Design UI/UX</option>
+                        <option value="altro">Altro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="budget" class="form-label">Budget Stimato</label>
+                    <select id="budget" name="budget" class="form-control">
+                        <option value="">Seleziona un'opzione</option>
+                        <option value="<1000">Meno di 100€</option>
+                        <option value="1000-3000">100€ - 200€</option>
+                        <option value="3000-5000">200€ - 300€</option>
+                        <option value="5000-10000">300€ - 400€</option>
+                        <option value=">10000">Più di 500€</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timeline" class="form-label">Tempistiche</label>
+                    <select id="timeline" name="timeline" class="form-control">
+                        <option value="">Seleziona un'opzione</option>
+                        <option value="urgente">Urgente (entro 2 settimane)</option>
+                        <option value="1-mese">Entro 1 mese</option>
+                        <option value="3-mesi">Entro 3 mesi</option>
+                        <option value="flessibile">Flessibile</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Descrizione del Progetto</label>
+                    <textarea id="message" name="message" class="form-control" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Invia Richiesta</button>
+            </form>
+            
+            <a href="index.html" class="back-link">← Torna alla Home</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+           <a href="mailto:matteomarino16@icloud.com" class="social-link" title="Email">✉️</a>
+           <a href="https://www.instagram.com/_matteomarino" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">📸</a> 
+           <a href="https://github.com/tuo_username" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">🐱</a>
+        </div>
+        <div class="legal-links">
+            <a href="index.html" class="legal-link">Home</a>
+            <a href="cookies.html" class="legal-link">Cookie Policy</a>
+        </div>
+        <p class="copyright">© 2025 matteomarino.cloud . Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Cookie Banner Management
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const cookieIcon = document.getElementById('cookie-icon');
+            const acceptCookies = document.getElementById('accept-cookies');
+            
+            // Check if user has already accepted cookies
+            const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+            
+            if (cookiesAccepted) {
+                cookieBanner.style.display = 'none';
+                cookieIcon.style.display = 'flex';
+            }
+            
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('cookiesAccepted', 'true');
+                cookieBanner.style.display = 'none';
+                cookieIcon.style.display = 'flex';
+            });
+            
+            cookieIcon.addEventListener('click', function() {
+                cookieBanner.style.display = 'flex';
+                cookieIcon.style.display = 'none';
+            });
+        });
+        
+        document.getElementById('preventivo-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch('https://formspree.io/f/mldwaejz', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    // Mostra messaggio di successo
+                    document.getElementById('success-message').style.display = 'block';
+                    form.reset();
+                    
+                    // Nascondi il messaggio dopo 5 secondi
+                    setTimeout(() => {
+                        document.getElementById('success-message').style.display = 'none';
+                    }, 5000);
+                } else {
+                    alert('Si è verificato un errore. Riprova più tardi.');
+                }
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore. Riprova più tardi.');
+            });
+        });
+    </script>
+</body>
+</html>
